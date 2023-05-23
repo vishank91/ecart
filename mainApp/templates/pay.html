@@ -20,7 +20,7 @@
       // alert(response.razorpay_payment_id);
       // alert(response.razorpay_order_id);
       // alert(response.razorpay_signature)
-      window.open("/paymentSuccess/"+response.razorpay_payment_id+"/"+response.razorpay_order_id+"/"+response.razorpay_signature+"/")
+      window.open("/paymentSuccess/"+response.razorpay_payment_id+"/"+response.razorpay_order_id+"/"+response.razorpay_signature+"/"+checkid+"/")
     },
     "prefill": {
       "name": "{{User.name}}",

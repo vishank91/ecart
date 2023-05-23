@@ -352,17 +352,21 @@ def placeOrderPage(Request):
                 "amount":orderAmount,
                 "api_key":RAZORPAY_API_KEY,
                 "order_id":paymentId,
-                "User":buyer
+                "User":buyer,
+                "checkid":-1
             })
     else:
         return HttpResponseRedirect("/checkout/")
 
 @login_required(login_url='/login/')
-def paymentSuccessPage(Request,rppid,rpoid,rpsid):
+def paymentSuccessPage(Request,rppid,rpoid,rpsid,checkid):
     buyer = Buyer.objects.get(username=Request.user)
-    check = Checkout.objects.filter(buyer=buyer)
-    check=check[::-1]
-    check=check[0]
+    if(checkid==-1):
+        check = Checkout.objects.filter(buyer=buyer)
+        check=check[::-1]
+        check=check[0]
+    else:
+        check = Checkout.objects.filter(id=checkid)
     check.rppid=rppid
     check.paymentStatus=2
     check.save()
@@ -390,12 +394,14 @@ def payAgainPage(Request,checkid):
         paymentOrder = client.order.create(dict(amount=orderAmount,currency=orderCurrency,payment_capture=1))
         paymentId = paymentOrder['id']
         check.paymentMode=2
+        check.paymentStatus=2
         check.save()
         return render(Request,"pay.html",{
             "amount":orderAmount,
             "api_key":RAZORPAY_API_KEY,
             "order_id":paymentId,
-            "User":buyer
+            "User":buyer,
+            "checkid":checkid
         })
     except:
         return HttpResponseRedirect("/profile/")
