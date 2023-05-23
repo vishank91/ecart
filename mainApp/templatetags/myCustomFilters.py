@@ -29,7 +29,8 @@ def orderStatusFilter(Request, status):
         return "Out for Delivery"
     else:
         return "Delivered"
-    
+     
+     
 
 @register.filter(name="checkForRepayment")
 def checkForRepayment(Request, checkout):
