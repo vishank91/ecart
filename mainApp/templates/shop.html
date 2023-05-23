@@ -1,0 +1,161 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ECart - Shop</title>
+{% endblock %}
+{% block body %}
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <span class="breadcrumb-item active">Shop List</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                <!-- Price Start -->
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                <div class="bg-light p-4 mb-30">
+                    <form action="/price-filter/{{mc}}/{{sc}}/{{br}}/" method="post">
+                        {% csrf_token %}
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input" checked name="price" value="1" id="price-all">
+                            <label class="custom-control-label" for="price-all">All Price</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input"  name="price" value="2" id="price-1">
+                            <label class="custom-control-label" for="price-1">&#8377;0 - &#8377;1000</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input"  name="price" value="3" id="price-2">
+                            <label class="custom-control-label" for="price-2">&#8377;1000 - &#8377;2000</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input"  name="price" value="4" id="price-3">
+                            <label class="custom-control-label" for="price-3">&#8377;2000 - &#8377;3000</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input"  name="price" value="5" id="price-4">
+                            <label class="custom-control-label" for="price-4">&#8377;3000 - &#8377;4000</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" class="custom-control-input"  name="price" value="6" id="price-5">
+                            <label class="custom-control-label" for="price-5">&#8377;4000 - &#8377;5000</label>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="radio" class="custom-control-input"  name="price" value="7" id="price-6">
+                            <label class="custom-control-label" for="price-6">More Then &#8377;5000</label>
+                        </div>
+                        <div class="my-3">
+                            <button type="submit" class="btn btn-primary btn-sm w-100">Apply Filter</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Price End -->
+                
+                
+            </div>
+            <!-- Shop Sidebar End -->
+
+
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-8">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Maincategory</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/shop/All/{{sc}}/{{br}}/">All</a>
+                                        {% for item in maincategories %}
+                                        <a class="dropdown-item" href="/shop/{{item.name}}/{{sc}}/{{br}}/">{{item.name}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Subcategory</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/shop/{{mc}}/All/{{br}}/">All</a>
+                                        {% for item in subcategories %}
+                                        <a class="dropdown-item" href="/shop/{{mc}}/{{item.name}}/{{br}}/">{{item.name}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Brand</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/shop/{{mc}}/{{sc}}/All/">All</a>
+                                        {% for item in brands %}
+                                        <a class="dropdown-item" href="/shop/{{mc}}/{{sc}}/{{item.name}}/">{{item.name}}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-2">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/filter/{{mc}}/{{sc}}/{{br}}/Latest/">Latest</a>
+                                        <a class="dropdown-item" href="/filter/{{mc}}/{{sc}}/{{br}}/LTOH/">Price : Low to High</a>
+                                        <a class="dropdown-item" href="/filter/{{mc}}/{{sc}}/{{br}}/HTOL/">Price : High to Low</a>
+                                    </div>
+                                </div>
+                                <!-- <div class="btn-group ml-2">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">10</a>
+                                        <a class="dropdown-item" href="#">20</a>
+                                        <a class="dropdown-item" href="#">30</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    {% for item in data %}
+                    <div class="col-md-4 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <a href="/single-product/{{item.id}}">
+                                    <img class="w-100" src={{item.pic1.url}} height="250px" alt="">
+                                </a>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="/single-product/{{item.id}}">{{item.name}}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>&#8377;{{item.finalprice}}</h5><h6 class="text-muted ml-2"><del class="text-danger">&#8377;{{item.baseprice}}</del> <sup class="text-success">{{item.discount}}% Off</sup></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- <div class="col-12">
+                        <nav>
+                          <ul class="pagination justify-content-center">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                          </ul>
+                        </nav>
+                    </div> -->
+                </div>
+            </div>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+
+{% endblock %}

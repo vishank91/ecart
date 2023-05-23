@@ -1,0 +1,133 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ECart - Checkout</title>
+{% endblock %}
+{% block body %}
+
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <a class="breadcrumb-item text-dark" href="/shop/All/All/All/">Shop</a>
+                    <span class="breadcrumb-item active">Checkout</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-md-6">
+                <h5 class="section-title position-relative text-uppercase mb-3 text-center"><span class="bg-secondary pr-3">Billing Address</span></h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <td>{{buyer.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>UserName</th>
+                            <td>{{buyer.username}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{buyer.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{buyer.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address Line 1</th>
+                            <td>{{buyer.addressline1}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address Line 2</th>
+                            <td>{{buyer.addressline2}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address Line 3</th>
+                            <td>{{buyer.addressline3}}</td>
+                        </tr>
+                        <tr>
+                            <th>Pin</th>
+                            <td>{{buyer.pin}}</td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td>{{buyer.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>State</th>
+                            <td>{{buyer.state}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><a href="/update-profile/" class="btn btn-primary w-100">Update Profile</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="section-title position-relative text-uppercase mb-3 text-center"><span class="bg-secondary pr-3">Order Total</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom">
+                        <h6 class="mb-3">Products</h6>
+                        {% for key,value in request.session.cart.items %}
+                        <div class="d-flex justify-content-between">
+                            <p>{{value.name}}(&#8377;{{value.price}}X{{value.qty}})</p>
+                            <p>&#8377;{{value.total}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="border-bottom pt-3 pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>&#8377;{{request.session.subtotal}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">&#8377;{{request.session.shipping}}</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>&#8377;{{request.session.total}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h5 class="section-title position-relative text-uppercase mb-3 text-center"><span class="bg-secondary pr-3">Payment</span></h5>
+                    <form action="/place-order/" method="post">
+                        {% csrf_token %}
+                        <div class="bg-light p-30">
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="mode" id="cod" value="COD" checked>
+                                    <label class="custom-control-label" for="cod">COD</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="mode" id="netbanking" value="Netbanking">
+                                    <label class="custom-control-label" for="netbanking">NetBanking/Card/UPI</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-block btn-primary btn-sm font-weight-bold py-3" type="submit">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+{% endblock %}

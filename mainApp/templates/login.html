@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ECart - Login</title>
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid w-100">
+    <div class="w-50 m-auto">
+        <h5 class="text-center bg-primary p-2"><span class="text-success">Login</span> To Your Account</h5>
+        {% for m in messages %}
+        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+            {{m}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor%}
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="User Name" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" class="form-control">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+        </form>
+        <div class="mb-3 d-flex justify-content-between">
+            <a class="text-success" href="/forget-password-1/">Forget Password</a>
+            <a class="text-success" href="/signup/">New User?Create a Free Account</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

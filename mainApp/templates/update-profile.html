@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ECart - Update Profile</title>
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid w-100">
+    <div class="w-75 m-auto">
+        <h5 class="text-center bg-primary p-2"><span class="text-success">Update</span> Your Profile</h5>
+        {% for m in messages %}
+        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+            {{m}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor%}
+        <form action="/update-profile/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Full Name" class="form-control" value="{{data.name}}">
+                </div>
+                <div class="col-md-6">
+                    <label>Pic</label>
+                    <input type="file" name="pic"  class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Email Address" class="form-control" value="{{data.email}}">
+                </div>
+                <div class="col-md-6">
+                    <label>Phone</label>
+                    <input type="text" name="phone" placeholder="Phone Number" class="form-control" value="{{data.phone}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Address Line 1</label>
+                    <input type="text" name="addressline1" placeholder="Address Line 1" class="form-control" value="{{data.addressline1}}">
+                </div>
+                <div class="col-md-6">
+                    <label>Address Line 2</label>
+                    <input type="text" name="addressline2" placeholder="Address Line 2" class="form-control" value="{{data.addressline2}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Address Line 3</label>
+                    <input type="text" name="addressline3" placeholder="Address Line 3" class="form-control" value="{{data.addressline3}}">
+                </div>
+                <div class="col-md-6">
+                    <label>Pin</label>
+                    <input type="text" name="pin" placeholder="pin" class="form-control" value="{{data.pin}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>City</label>
+                    <input type="text" name="city" placeholder="City Name " class="form-control" value="{{data.city}}">
+                </div>
+                <div class="col-md-6">
+                    <label>State</label>
+                    <input type="text" name="state" placeholder="State Name" class="form-control" value="{{data.state}}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

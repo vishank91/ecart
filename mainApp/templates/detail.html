@@ -1,0 +1,127 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>ECart - Single Product</title>
+{% endblock %}
+{% block body %}
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <a class="breadcrumb-item text-dark" href="/shop/All/All/All/">Shop</a>
+                    <span class="breadcrumb-item active">Product Detail</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100" src="{{data.pic1.url}}" height="500px" alt="Image">
+                        </div>
+                        <div class="carousel-item">
+                            {% if data.pic2 %}
+                            <img class="w-100" src="{{data.pic2.url}}" height="500px" alt="Image">
+                            {% endif %}
+                        </div>
+                        <div class="carousel-item">
+                            {% if data.pic3 %}
+                            <img class="w-100" src="{{data.pic3.url}}" height="500px" alt="Image">
+                            {% endif %}
+                        </div>
+                        <div class="carousel-item">
+                            {% if data.pic4 %}
+                            <img class="w-100" src="{{data.pic4.url}}" height="500px" alt="Image">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{data.name}}</h3>
+                    <h3 class="font-weight-semi-bold mb-4">&#8377;{{data.finalprice}} <del class="text-danger">&#8377;{{data.baseprice}}</del> <sup class="text-success">{{data.discount}}% OFF</sup></h3>
+                    <p>{{data.maincategory}}/{{data.subcategory}}/{{data.brand}}</p>
+                    <p class="mb-4">{{data.description}}</p>
+                    <div class="d-flex mb-3">
+                        <strong class="text-dark mr-3">Sizes:</strong>
+                        {{data.size}}
+                    </div>
+                    <div class="d-flex mb-4">
+                        <strong class="text-dark mr-3">Colors:</strong>
+                        {{data.color}}
+                    </div>
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <a class="btn btn-primary px-3" href="/add-to-cart/{{data.id}}/"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</a>
+                        <a class="btn btn-success px-3" href="/add-to-wishlist/{{data.id}}/"><i class="fa fa-heart mr-1"></i> Add To Wishlist</a>
+                    </div>
+                    <div class="d-flex pt-2">
+                        <strong class="text-dark mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-dark px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <!-- Shop Detail End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid py-1">
+        <h2 class="text-center section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+                    {% for item in relatedProducts %}
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                            <a href="/single-product/{{item.id}}">
+                                <img class="" src="{{item.pic1.url}}" style="height:250px" width="100%" alt="">
+                            </a>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="/single-product/{{item.id}}">{{item.name}}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>&#8377;{{item.finalprice}}</h5><h6 class="text-muted ml-2"><del class="text-danger">&#8377;{{item.baseprice}}</del> <sup class="text-success">{{item.discount}}% OFF</sup></h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+{% endblock %}
