@@ -360,7 +360,7 @@ def placeOrderPage(Request):
 @login_required(login_url='/login/')
 def paymentSuccessPage(Request,rppid,rpoid,rpsid):
     buyer = Buyer.objects.get(username=Request.user)
-    check = Checkout.objects.filter(user=buyer)
+    check = Checkout.objects.filter(buyer=buyer)
     check=check[::-1]
     check=check[0]
     check.rppid=rppid
