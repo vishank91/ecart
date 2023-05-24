@@ -394,7 +394,6 @@ def payAgainPage(Request,checkid):
         paymentOrder = client.order.create(dict(amount=orderAmount,currency=orderCurrency,payment_capture=1))
         paymentId = paymentOrder['id']
         check.paymentMode=2
-        check.paymentStatus=2
         check.save()
         return render(Request,"pay.html",{
             "amount":orderAmount,
