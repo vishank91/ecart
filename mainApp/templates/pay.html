@@ -11,8 +11,6 @@
 </div>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-  var url = `/paymentSuccess/${response.razorpay_payment_id}/${response.razorpay_order_id}/${response.razorpay_signature}/${checkid}/`
-  console.log(url);
   var options = {
     "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
     "name": "Ecart",
@@ -22,7 +20,7 @@
       // alert(response.razorpay_payment_id);
       // alert(response.razorpay_order_id);
       // alert(response.razorpay_signature)
-      window.open(url)
+      window.open("/paymentSuccess/"+response.razorpay_payment_id+"/"+response.razorpay_order_id+"/"+response.razorpay_signature+"/{{checkid}}/")
     },
     "prefill": {
       "name": "{{User.name}}",
