@@ -353,7 +353,7 @@ def placeOrderPage(Request):
                 "api_key":RAZORPAY_API_KEY,
                 "order_id":paymentId,
                 "User":buyer,
-                "checkid":-1
+                "checkid":9999999999
             })
     else:
         return HttpResponseRedirect("/checkout/")
