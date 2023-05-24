@@ -366,7 +366,7 @@ def paymentSuccessPage(Request,rppid,rpoid,rpsid,checkid):
         check=check[::-1]
         check=check[0]
     else:
-        check = Checkout.objects.filter(id=checkid)
+        check = Checkout.objects.get(id=checkid)
     check.rppid=rppid
     check.paymentStatus=2
     check.save()
