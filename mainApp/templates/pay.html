@@ -12,7 +12,7 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
   var url = `/paymentSuccess/${response.razorpay_payment_id}/${response.razorpay_order_id}/${response.razorpay_signature}/${checkid}/`
-  alert(url)
+  console.log(url);
   var options = {
     "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
     "name": "Ecart",
